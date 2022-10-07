@@ -1,11 +1,7 @@
-import { AppBar, Button, Container, Grid, Stack, Toolbar } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { AppBar, Container, Stack, Toolbar } from '@mui/material';
 import { ReactComponent as Logo } from '../star-wars.svg';
 
-const APP_BAR_HEIGHT = 80;
-
 export const Header = () => {
-  const navigate = useNavigate();
   return (
     <AppBar
       position="static"
@@ -19,7 +15,6 @@ export const Header = () => {
     >
       <Toolbar
         sx={{
-          height: `${APP_BAR_HEIGHT}px`,
           '&.MuiToolbar-root': {
             paddingRight: 0,
             paddingLeft: 0,
@@ -27,16 +22,8 @@ export const Header = () => {
         }}
       >
         <Container>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            flexGrow={1}
-          >
-            <Logo width="80px" />
-            <Button variant="contained" onClick={() => navigate('login')}>
-              Login
-            </Button>
+          <Stack direction="row" justifyContent="center" flexGrow={1}>
+            <Logo width="80px" height="80px" />
           </Stack>
         </Container>
       </Toolbar>

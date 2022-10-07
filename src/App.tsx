@@ -1,28 +1,46 @@
-import { CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppShell } from './AppShell';
+import { Login } from './user/Login';
+import { ProtectedRoute } from './ProtectedRoute';
 import { theme } from './theme';
-
-const GLOBAL_STYLES = {
-  body: {
-    margin: 0,
-  },
-};
+import { useIsLoggedIn } from './user/useIsLoggedIn';
+import { UserProvider } from './user/userContext';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <GlobalStyles styles={GLOBAL_STYLES} />
-      <Routes>
-        <Route path="/" element={<AppShell />}>
-          <Route index element={<Navigate to="welcome" replace />} />
-          <Route path="/login" element={<h1>Login</h1>}></Route>
-          <Route path="/welcome" element={<h1>Welcome</h1>}></Route>
-        </Route>
-      </Routes>
+      <UserProvider>
+        <AppRoot />
+      </UserProvider>
     </ThemeProvider>
   );
 }
+
+const AppRoot = () => {
+  const isLoggedIn = useIsLoggedIn();
+
+  return (
+    <Routes>
+      <Route path="/" element={<AppShell />}>
+        <Route
+          index
+          element={<Navigate to={isLoggedIn ? 'welcome' : 'login'} replace />}
+        />
+        <Route path="/login" element={<Login />} />
+        {/* TODO:404 route */}
+        <Route
+          path="/welcome"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <h1>Welcome</h1>
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+    </Routes>
+  );
+};
 
 export default App;

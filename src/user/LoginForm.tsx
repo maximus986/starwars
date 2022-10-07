@@ -1,34 +1,42 @@
 import { Button, Stack } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { SWTextField } from '../core';
 import { User } from './user';
 import { useUserContext } from './userContext';
 import { userService } from './userService';
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Please provide a valid email')
+    .required('Email is a required field'),
+  password: yup.string().required('Password is a required field'),
+});
+
 export const LoginForm = () => {
-  const [loginFormData, setLoginFormData] = useState<User>({
-    email: '',
-    password: '',
+  const {
+    control,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm<User>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onTouched',
+    resolver: yupResolver(schema),
   });
 
   const navigate = useNavigate();
   const userContext = useUserContext();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLoginFormData({
-      ...loginFormData,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(loginFormData);
-
-    const response = await userService.login(loginFormData);
+  const onSubmit: SubmitHandler<User> = async (data) => {
+    const response = await userService.login(data);
     if (response) {
-      userContext.setUser(loginFormData);
+      userContext.setUser(data);
       navigate('/welcome', { replace: true });
     } else {
       alert('Invalid credentials');
@@ -36,23 +44,45 @@ export const LoginForm = () => {
   };
 
   return (
-    <Stack component="form" gap={3} onSubmit={handleSubmit}>
-      <SWTextField
-        label="Email"
+    <Stack component="form" gap={3} onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur } }) => (
+          <SWTextField
+            label="Email"
+            type="email"
+            onChange={onChange}
+            onBlur={onBlur}
+            autoFocus
+            required
+            error={Boolean(errors.email)}
+            helperText={Boolean(errors.email) && errors.email?.message}
+          />
+        )}
         name="email"
-        type="email"
-        onChange={handleChange}
-        autoFocus
-        required
       />
-      <SWTextField
-        label="Password"
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur } }) => (
+          <SWTextField
+            label="Password"
+            type="password"
+            onChange={onChange}
+            onBlur={onBlur}
+            required
+            error={Boolean(errors.password)}
+            helperText={Boolean(errors.password) && errors.password?.message}
+          />
+        )}
         name="password"
-        type="password"
-        onChange={handleChange}
-        required
       />
-      <Button type="submit" variant="outlined">
+      <Button type="submit" variant="outlined" disabled={!isValid}>
         Login
       </Button>
     </Stack>

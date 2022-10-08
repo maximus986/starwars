@@ -8,7 +8,7 @@ export const AppShell = () => {
     <>
       <Header />
       <Box component="main" mt={4}>
-        <Container>
+        <Container sx={{ margin: '0 auto' }}>
           <Outlet />
         </Container>
       </Box>

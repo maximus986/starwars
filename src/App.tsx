@@ -6,15 +6,20 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { theme } from './theme';
 import { useIsLoggedIn } from './user/useIsLoggedIn';
 import { UserProvider } from './user/userContext';
+import { StarWarsResourcesPage } from './star-wars-resources/StarWarsResourcesPage';
+import { Provider } from 'react-redux';
+import { store } from './api';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <UserProvider>
-        <AppRoot />
-      </UserProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <UserProvider>
+          <AppRoot />
+        </UserProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
@@ -26,15 +31,20 @@ const AppRoot = () => {
       <Route path="/" element={<AppShell />}>
         <Route
           index
-          element={<Navigate to={isLoggedIn ? 'welcome' : 'login'} replace />}
+          element={
+            <Navigate
+              to={isLoggedIn ? 'star-wars-resources' : 'login'}
+              replace
+            />
+          }
         />
         <Route path="/login" element={<Login />} />
         {/* TODO:404 route */}
         <Route
-          path="/welcome"
+          path="star-wars-resources"
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <h1>Welcome</h1>
+              <StarWarsResourcesPage />
             </ProtectedRoute>
           }
         />

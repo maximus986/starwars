@@ -37,7 +37,7 @@ export const LoginForm = () => {
     const response = await userService.login(data);
     if (response) {
       userContext.setUser(data);
-      navigate('/welcome', { replace: true });
+      navigate('star-wars-resources', { replace: true });
     } else {
       alert('Invalid credentials');
     }

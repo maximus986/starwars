@@ -1,4 +1,4 @@
-export interface StarWarResource {
+export interface StarWarResourceDto {
   [StarWarResourceType.people]: string;
   [StarWarResourceType.films]: string;
   [StarWarResourceType.planets]: string;

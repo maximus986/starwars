@@ -6,7 +6,7 @@ export const StarWarsResourcesSkeleton = () => {
   return (
     <StarWarsResourcesGridContainer>
       {Array(6)
-        .fill('i')
+        .fill('resource')
         .map((_, i) => (
           <StarWarsResourcesGridItem key={i}>
             <StarWarsItemSkeleton />

@@ -1,5 +1,4 @@
-import { Box, Container } from '@mui/material';
-import { createContext } from 'react';
+import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { Header } from './header/Header';
 
@@ -7,10 +6,8 @@ export const AppShell = () => {
   return (
     <>
       <Header />
-      <Box component="main" mt={4}>
-        <Container sx={{ margin: '0 auto' }}>
-          <Outlet />
-        </Container>
+      <Box component="main">
+        <Outlet />
       </Box>
     </>
   );

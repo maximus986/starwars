@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { Header } from './header/Header';
 
@@ -7,7 +7,9 @@ export const AppShell = () => {
     <>
       <Header />
       <Box component="main">
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Box>
     </>
   );

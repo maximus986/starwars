@@ -1,32 +1,42 @@
-import { Box, Toolbar, Typography, Container, Stack } from '@mui/material';
-import { useCallback, useState } from 'react';
-import { StarWarResourceType, useGetStarWarResourcesQuery } from '../api';
+import { Box, Stack, Toolbar, Typography } from '@mui/material';
+import { intersection } from 'lodash';
+import { useMemo } from 'react';
+import { useGetStarWarResourcesQuery } from '../api';
 import { FilterResource } from './FilterResource';
+import { SearchResources } from './SearchResources';
 import { StarWarsResource } from './StarWarsResource';
 import { StarWarsResourcesGridContainer } from './StarWarsResourcesGridContainer';
 import { StarWarsResourcesGridItem } from './StarWarsResourcesGridItem';
+import { useFilterResources } from './useFilterResources';
+import { useSearchResources } from './useSearchResources';
 
 export const StarWarsResources = () => {
   const { data } = useGetStarWarResourcesQuery();
-  const [starWarsResources, setStarWarsResources] = useState<
-    StarWarResourceType[]
-  >(data ?? []);
 
-  const handleFilterChange = useCallback(
-    (filter: StarWarResourceType) => {
-      const filteredResources =
-        data?.filter((resource) => resource === filter) ?? [];
-      setStarWarsResources(filteredResources);
-    },
-    [data]
+  const {
+    handleFilterResources,
+    handleFilterReset,
+    filteredStarWarsResources,
+  } = useFilterResources(data ?? []);
+
+  const {
+    handleSearchResources,
+    handleSearchReset,
+    searchedStarWarsResources,
+  } = useSearchResources(data ?? []);
+
+  const starWarsResources = useMemo(
+    () =>
+      intersection(
+        filteredStarWarsResources,
+        searchedStarWarsResources,
+        data ?? []
+      ),
+    [data, filteredStarWarsResources, searchedStarWarsResources]
   );
 
-  const handleFilterReset = useCallback(() => {
-    setStarWarsResources(data ?? []);
-  }, [data]);
-
   return (
-    <Container>
+    <>
       <Toolbar>
         <Stack
           direction={['column', 'row']}
@@ -36,12 +46,21 @@ export const StarWarsResources = () => {
           flex={1}
           pt={3}
         >
-          <Typography>Search</Typography>
+          <SearchResources
+            onSearchResources={(searchQuery) => {
+              handleSearchResources(searchQuery);
+            }}
+            onClearSearch={() => {
+              handleSearchReset();
+            }}
+          />
           <FilterResource
             onFilter={(filter) => {
-              handleFilterChange(filter);
+              handleFilterResources(filter);
             }}
-            onFilterReset={handleFilterReset}
+            onFilterReset={() => {
+              handleFilterReset();
+            }}
           />
         </Stack>
       </Toolbar>
@@ -59,6 +78,9 @@ export const StarWarsResources = () => {
           })}
         </StarWarsResourcesGridContainer>
       </Box>
-    </Container>
+      {starWarsResources.length === 0 ? (
+        <Typography>No search results</Typography>
+      ) : null}
+    </>
   );
 };

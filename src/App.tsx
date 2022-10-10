@@ -6,9 +6,10 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { theme } from './theme';
 import { useIsLoggedIn } from './user/useIsLoggedIn';
 import { UserProvider } from './user/userContext';
-import { StarWarsResourcesPage } from './star-wars-resources/StarWarsResourcesPage';
+import { StarWarsResourcesPage, StarWarsPeople } from './star-wars-resources';
 import { Provider } from 'react-redux';
 import { store } from './api';
+import { NotFound } from './NotFound';
 
 function App() {
   return (
@@ -33,21 +34,30 @@ const AppRoot = () => {
           index
           element={
             <Navigate
-              to={isLoggedIn ? 'star-wars-resources' : 'login'}
+              to={isLoggedIn ? '/star-wars-resources' : '/login'}
               replace
             />
           }
         />
         <Route path="/login" element={<Login />} />
-        {/* TODO:404 route */}
         <Route
-          path="star-wars-resources"
+          path="/star-wars-resources"
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsResourcesPage />
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/star-wars-resources/people"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <StarWarsPeople />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Route>
     </Routes>
   );

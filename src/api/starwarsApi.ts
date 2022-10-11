@@ -1,4 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FilmModel } from './films/filmModel';
+import { normalizeFilms } from './films/normalizeFilms';
 import { normalizePeople } from './people/normalizePeople';
 import { PeopleModel } from './people/peopleModel';
 import { normalizePlanets } from './planets/normalizePlanets';
@@ -12,6 +14,7 @@ export const starWarsApi = createApi({
     'StarWarsResources',
     'StarWarsResourcesPeople',
     'StarWarsResourcesPlanets',
+    'StarWarsResourcesFilms',
   ],
   endpoints: (builder) => ({
     getStarWarResources: builder.query<StarWarResourceType[], void>({
@@ -36,6 +39,11 @@ export const starWarsApi = createApi({
       transformResponse: normalizePlanets,
       providesTags: ['StarWarsResourcesPlanets'],
     }),
+    getStarWarFilms: builder.query<FilmModel, void>({
+      query: () => `/films`,
+      transformResponse: normalizeFilms,
+      providesTags: ['StarWarsResourcesFilms'],
+    }),
   }),
 });
 
@@ -43,5 +51,6 @@ export const {
   useGetStarWarResourcesQuery,
   useGetStarWarPeopleQuery,
   useGetStarWarPlanetsQuery,
+  useGetStarWarFilmsQuery,
   usePrefetch,
 } = starWarsApi;

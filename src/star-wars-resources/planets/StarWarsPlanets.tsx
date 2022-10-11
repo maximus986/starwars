@@ -41,7 +41,7 @@ export const StarWarsPlanets = () => {
         count={count}
         page={page}
       />
-      <StarWarsPageTitle>People</StarWarsPageTitle>
+      <StarWarsPageTitle>Planets</StarWarsPageTitle>
       <StarWarsGridContainer>
         {data?.planets.map(({ name, climate, population, terrain }) => {
           return (

@@ -9,6 +9,7 @@ import { UserProvider } from './user/userContext';
 import {
   StarWarsResourcesPage,
   StarWarsPeoplePage,
+  StarWarsFilmsPage,
 } from './star-wars-resources';
 import { Provider } from 'react-redux';
 import { store } from './api';
@@ -65,6 +66,14 @@ const AppRoot = () => {
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsPlanetsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/star-wars-resources/films"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <StarWarsFilmsPage />
             </ProtectedRoute>
           }
         />

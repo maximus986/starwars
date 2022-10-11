@@ -5,6 +5,8 @@ import { normalizePeople } from './people/normalizePeople';
 import { PeopleModel } from './people/peopleModel';
 import { normalizePlanets } from './planets/normalizePlanets';
 import { PlanetModel } from './planets/planetModel';
+import { normalizeSpecies } from './species/normalizeSpecies';
+import { SpeciesModel } from './species/speciesModel';
 import { StarWarResourceDto, StarWarResourceType } from './starWarResource';
 
 export const starWarsApi = createApi({
@@ -15,6 +17,7 @@ export const starWarsApi = createApi({
     'StarWarsResourcesPeople',
     'StarWarsResourcesPlanets',
     'StarWarsResourcesFilms',
+    'StarWarsResourcesSpecies',
   ],
   endpoints: (builder) => ({
     getStarWarResources: builder.query<StarWarResourceType[], void>({
@@ -44,6 +47,11 @@ export const starWarsApi = createApi({
       transformResponse: normalizeFilms,
       providesTags: ['StarWarsResourcesFilms'],
     }),
+    getStarWarSpecies: builder.query<SpeciesModel, { pageNumber: number }>({
+      query: (body) => `/species?page=${body.pageNumber}`,
+      transformResponse: normalizeSpecies,
+      providesTags: ['StarWarsResourcesSpecies'],
+    }),
   }),
 });
 
@@ -52,5 +60,6 @@ export const {
   useGetStarWarPeopleQuery,
   useGetStarWarPlanetsQuery,
   useGetStarWarFilmsQuery,
+  useGetStarWarSpeciesQuery,
   usePrefetch,
 } = starWarsApi;

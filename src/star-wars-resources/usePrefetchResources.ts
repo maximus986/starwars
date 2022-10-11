@@ -7,6 +7,7 @@ export const usePrefetchResources = (resource: StarWarResourceType) => {
   const prefetchFilms = usePrefetch('getStarWarFilms');
   const prefetchSpecies = usePrefetch('getStarWarSpecies');
   const prefetchVehicles = usePrefetch('getStarWarVehicles');
+  const prefetchStarships = usePrefetch('getStarWarStarships');
 
   const resourcePrefetchMap: Record<StarWarResourceType, () => void> = useMemo(
     () => ({
@@ -14,7 +15,7 @@ export const usePrefetchResources = (resource: StarWarResourceType) => {
       films: () => prefetchFilms(),
       planets: () => prefetchPlanets({ pageNumber: 1 }),
       species: () => prefetchSpecies({ pageNumber: 1 }),
-      starships: () => prefetchPeople({ pageNumber: 1 }),
+      starships: () => prefetchStarships({ pageNumber: 1 }),
       vehicles: () => prefetchVehicles({ pageNumber: 1 }),
     }),
     [
@@ -23,6 +24,7 @@ export const usePrefetchResources = (resource: StarWarResourceType) => {
       prefetchFilms,
       prefetchSpecies,
       prefetchVehicles,
+      prefetchStarships,
     ]
   );
 

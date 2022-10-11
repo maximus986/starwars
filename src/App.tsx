@@ -12,6 +12,7 @@ import {
   StarWarsFilmsPage,
   StarWarsSpeciesPage,
   StarWarsVehiclesPage,
+  StarWarsStarshipsPage,
 } from './star-wars-resources';
 import { Provider } from 'react-redux';
 import { store } from './api';
@@ -92,6 +93,14 @@ const AppRoot = () => {
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsVehiclesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/star-wars-resources/starships"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <StarWarsStarshipsPage />
             </ProtectedRoute>
           }
         />

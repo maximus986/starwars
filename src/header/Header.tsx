@@ -1,5 +1,6 @@
 import { AppBar, Container, Stack, Toolbar } from '@mui/material';
 import { ReactComponent as Logo } from '../star-wars.svg';
+import { Logout } from './Logout';
 
 export const Header = () => {
   return (
@@ -22,8 +23,9 @@ export const Header = () => {
         }}
       >
         <Container>
-          <Stack direction="row" justifyContent="center" flexGrow={1}>
+          <Stack direction="row" justifyContent="space-between" flexGrow={1}>
             <Logo width="80px" height="80px" />
+            <Logout />
           </Stack>
         </Container>
       </Toolbar>

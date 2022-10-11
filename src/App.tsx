@@ -4,8 +4,6 @@ import { AppShell } from './AppShell';
 import { Login } from './user/Login';
 import { ProtectedRoute } from './ProtectedRoute';
 import { theme } from './theme';
-import { useIsLoggedIn } from './user/useIsLoggedIn';
-import { UserProvider } from './user/userContext';
 import {
   StarWarsResourcesPage,
   StarWarsPeoplePage,
@@ -15,25 +13,26 @@ import {
   StarWarsStarshipsPage,
 } from './star-wars-resources';
 import { Provider } from 'react-redux';
-import { store } from './api';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store, useAppSelector } from './api';
 import { NotFound } from './NotFound';
 import { StarWarsPlanetsPage } from './star-wars-resources/planets/StarWarsPlanetsPage';
 
 function App() {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <UserProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
           <AppRoot />
-        </UserProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   );
 }
 
 const AppRoot = () => {
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
 
   return (
     <Routes>

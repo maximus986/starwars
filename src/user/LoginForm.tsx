@@ -1,11 +1,12 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Stack } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { useAppDispatch } from '../api';
 import { SWTextField } from '../core';
 import { User } from './user';
-import { useUserContext } from './userContext';
+import { setLoggedIn } from './user.slice';
 import { userService } from './userService';
 
 const schema = yup.object().shape({
@@ -30,13 +31,13 @@ export const LoginForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const userContext = useUserContext();
 
   const onSubmit: SubmitHandler<User> = async (data) => {
     const response = await userService.login(data);
     if (response) {
-      userContext.setUser(data);
+      dispatch(setLoggedIn());
       navigate('/star-wars-resources', { replace: true });
     } else {
       alert('Invalid credentials');

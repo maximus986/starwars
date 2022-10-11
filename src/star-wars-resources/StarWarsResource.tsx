@@ -8,6 +8,7 @@ import planets from './images/planets.webp';
 import films from './images/films.webp';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { usePrefetchResources } from './usePrefetchResources';
 
 interface StarWarsResourceProps {
   resource: StarWarResourceType;
@@ -25,6 +26,7 @@ const resourceImageMap: Record<StarWarResourceType, string> = {
 export const StarWarsResource: React.FC<StarWarsResourceProps> = ({
   resource,
 }) => {
+  const prefetchResource = usePrefetchResources(resource);
   return (
     <Card variant="outlined" elevation={0}>
       <CardHeader title={resource} sx={{ textTransform: 'capitalize' }} />
@@ -43,6 +45,7 @@ export const StarWarsResource: React.FC<StarWarsResourceProps> = ({
           component={Link}
           to={`/star-wars-resources/${resource}`}
           variant="contained"
+          onMouseEnter={prefetchResource}
         >
           Details
         </Button>

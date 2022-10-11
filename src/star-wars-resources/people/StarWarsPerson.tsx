@@ -1,5 +1,8 @@
-import { Typography } from '@mui/material';
-import { StarWarsCard, StarWarsCardSubtitle } from '../../shared';
+import {
+  StarWarsCard,
+  StarWarsCardItem,
+  StarWarsCardSubtitle,
+} from '../../shared';
 
 interface StarWarsPersonProps {
   name: string;
@@ -17,11 +20,11 @@ export const StarWarsPerson: React.FC<StarWarsPersonProps> = ({
   return (
     <StarWarsCard cardTitle={name}>
       <StarWarsCardSubtitle>Height</StarWarsCardSubtitle>
-      <Typography>{height}</Typography>
+      <StarWarsCardItem>{height}</StarWarsCardItem>
       <StarWarsCardSubtitle>Mass</StarWarsCardSubtitle>
-      <Typography>{mass}</Typography>
+      <StarWarsCardItem>{mass}</StarWarsCardItem>
       <StarWarsCardSubtitle>Hair color</StarWarsCardSubtitle>
-      <Typography>{hairColor}</Typography>
+      <StarWarsCardItem>{hairColor}</StarWarsCardItem>
     </StarWarsCard>
   );
 };

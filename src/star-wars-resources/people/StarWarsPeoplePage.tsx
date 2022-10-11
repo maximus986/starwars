@@ -1,8 +1,6 @@
-import React from 'react';
 import { useGetStarWarPeopleQuery } from '../../api';
-import { RefetchOnError } from '../../shared';
+import { RefetchOnError, StarWarsSkeleton } from '../../shared';
 import { StarWarsPeople } from './StarWarsPeople';
-import { StarWarsPeopleSkeleton } from './StarWarsPeopleSkeleton';
 
 export const StarWarsPeoplePage = () => {
   const { isError, isLoading, isSuccess, refetch } = useGetStarWarPeopleQuery({
@@ -10,7 +8,7 @@ export const StarWarsPeoplePage = () => {
   });
   return (
     <>
-      {isLoading ? <StarWarsPeopleSkeleton /> : null}
+      {isLoading ? <StarWarsSkeleton /> : null}
       {isError ? <RefetchOnError onRefetch={refetch} /> : null}
       {isSuccess ? <StarWarsPeople /> : null}
     </>

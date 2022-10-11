@@ -13,6 +13,7 @@ import {
 import { Provider } from 'react-redux';
 import { store } from './api';
 import { NotFound } from './NotFound';
+import { StarWarsPlanetsPage } from './star-wars-resources/planets/StarWarsPlanetsPage';
 
 function App() {
   return (
@@ -56,6 +57,14 @@ const AppRoot = () => {
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsPeoplePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/star-wars-resources/planets"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <StarWarsPlanetsPage />
             </ProtectedRoute>
           }
         />

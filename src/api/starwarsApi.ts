@@ -1,12 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { normalizePeople } from './people/normalizePeople';
 import { PeopleModel } from './people/peopleModel';
+import { normalizePlanets } from './planets/normalizePlanets';
+import { PlanetModel } from './planets/planetModel';
 import { StarWarResourceDto, StarWarResourceType } from './starWarResource';
 
 export const starWarsApi = createApi({
   reducerPath: 'starWarsApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://swapi.dev/api/' }),
-  tagTypes: ['StarWarsResources', 'StarWarsResourcesPeople'],
+  tagTypes: [
+    'StarWarsResources',
+    'StarWarsResourcesPeople',
+    'StarWarsResourcesPlanets',
+  ],
   endpoints: (builder) => ({
     getStarWarResources: builder.query<StarWarResourceType[], void>({
       query: () => `/`,
@@ -25,11 +31,17 @@ export const starWarsApi = createApi({
       transformResponse: normalizePeople,
       providesTags: ['StarWarsResourcesPeople'],
     }),
+    getStarWarPlanets: builder.query<PlanetModel, { pageNumber: number }>({
+      query: (body) => `/planets?page=${body.pageNumber}`,
+      transformResponse: normalizePlanets,
+      providesTags: ['StarWarsResourcesPlanets'],
+    }),
   }),
 });
 
 export const {
   useGetStarWarResourcesQuery,
   useGetStarWarPeopleQuery,
+  useGetStarWarPlanetsQuery,
   usePrefetch,
 } = starWarsApi;

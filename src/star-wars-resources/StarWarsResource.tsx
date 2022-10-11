@@ -27,6 +27,7 @@ export const StarWarsResource: React.FC<StarWarsResourceProps> = ({
   resource,
 }) => {
   const prefetchResource = usePrefetchResources(resource);
+
   return (
     <Card variant="outlined" elevation={0}>
       <CardHeader title={resource} sx={{ textTransform: 'capitalize' }} />

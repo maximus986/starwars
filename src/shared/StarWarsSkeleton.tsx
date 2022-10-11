@@ -10,9 +10,9 @@ import {
   StarWarsGridContainer,
   StarWarsGridItem,
   StarWarsCardSubtitle,
-} from '../../shared';
+} from '.';
 
-export const StarWarsPeopleSkeleton = () => {
+export const StarWarsSkeleton = () => {
   return (
     <StarWarsPage>
       <StarWarsGridContainer>
@@ -20,7 +20,7 @@ export const StarWarsPeopleSkeleton = () => {
           .fill('resource')
           .map((_, i) => (
             <StarWarsGridItem key={i}>
-              <StarWarsPersonSkeleton />
+              <StarWarsSkeletonItem />
             </StarWarsGridItem>
           ))}
       </StarWarsGridContainer>
@@ -28,7 +28,7 @@ export const StarWarsPeopleSkeleton = () => {
   );
 };
 
-const StarWarsPersonSkeleton = () => {
+const StarWarsSkeletonItem = () => {
   return (
     <Card variant="outlined">
       <CardHeader title={<Skeleton variant="text" />} />

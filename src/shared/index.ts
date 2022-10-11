@@ -6,3 +6,6 @@ export * from './StarWarsGridItem';
 export * from './StarWarsPageTitle';
 export * from './StarWarsPage';
 export * from './NoData';
+export * from './StarWarsCardItem';
+export * from './StarWarsPagination';
+export * from './StarWarsSkeleton';

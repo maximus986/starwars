@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetStarWarPeopleQuery } from '../../api';
+import { useGetStarWarPlanetsQuery } from '../../api';
 import {
   NoData,
   StarWarsGridContainer,
@@ -8,11 +8,11 @@ import {
   StarWarsPageTitle,
   StarWarsPagination,
 } from '../../shared';
-import { StarWarsPerson } from './StarWarsPerson';
+import { StarWarsPlanet } from './StarWarsPlanet';
 
-export const StarWarsPeople = () => {
+export const StarWarsPlanets = () => {
   const [page, setPage] = useState(1);
-  const { data, isFetching } = useGetStarWarPeopleQuery({
+  const { data, isFetching } = useGetStarWarPlanetsQuery({
     pageNumber: page,
   });
 
@@ -26,7 +26,7 @@ export const StarWarsPeople = () => {
     setPage(page + 1);
   };
 
-  if (data?.people.length === 0) {
+  if (data?.planets.length === 0) {
     return <NoData />;
   }
 
@@ -43,14 +43,14 @@ export const StarWarsPeople = () => {
       />
       <StarWarsPageTitle>People</StarWarsPageTitle>
       <StarWarsGridContainer>
-        {data?.people.map(({ name, hairColor, mass, height }) => {
+        {data?.planets.map(({ name, climate, population, terrain }) => {
           return (
             <StarWarsGridItem key={name}>
-              <StarWarsPerson
+              <StarWarsPlanet
                 name={name}
-                hairColor={hairColor}
-                mass={mass}
-                height={height}
+                climate={climate}
+                population={population}
+                terrain={terrain}
               />
             </StarWarsGridItem>
           );

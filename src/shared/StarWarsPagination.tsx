@@ -45,7 +45,7 @@ export const StarWarsPagination: React.FC<StarWarsPaginationProps> = ({
       >
         Next
       </LoadingButton>
-      <Typography>Page: {page}</Typography>
+      <Typography>Page: {!loading ? page : 'Fetching...'}</Typography>
       <Typography>Count: {count}</Typography>
     </Stack>
   );

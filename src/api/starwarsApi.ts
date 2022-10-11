@@ -8,6 +8,8 @@ import { PlanetModel } from './planets/planetModel';
 import { normalizeSpecies } from './species/normalizeSpecies';
 import { SpeciesModel } from './species/speciesModel';
 import { StarWarResourceDto, StarWarResourceType } from './starWarResource';
+import { normalizeVehicles } from './vehicles/normalizeVehicles';
+import { VehicleModel } from './vehicles/vehicleModel';
 
 export const starWarsApi = createApi({
   reducerPath: 'starWarsApi',
@@ -18,6 +20,7 @@ export const starWarsApi = createApi({
     'StarWarsResourcesPlanets',
     'StarWarsResourcesFilms',
     'StarWarsResourcesSpecies',
+    'StarWarsResourcesVehicles',
   ],
   endpoints: (builder) => ({
     getStarWarResources: builder.query<StarWarResourceType[], void>({
@@ -52,6 +55,11 @@ export const starWarsApi = createApi({
       transformResponse: normalizeSpecies,
       providesTags: ['StarWarsResourcesSpecies'],
     }),
+    getStarWarVehicles: builder.query<VehicleModel, { pageNumber: number }>({
+      query: (body) => `/vehicles?page=${body.pageNumber}`,
+      transformResponse: normalizeVehicles,
+      providesTags: ['StarWarsResourcesVehicles'],
+    }),
   }),
 });
 
@@ -61,5 +69,6 @@ export const {
   useGetStarWarPlanetsQuery,
   useGetStarWarFilmsQuery,
   useGetStarWarSpeciesQuery,
+  useGetStarWarVehiclesQuery,
   usePrefetch,
 } = starWarsApi;

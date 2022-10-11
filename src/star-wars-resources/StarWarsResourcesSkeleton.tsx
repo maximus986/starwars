@@ -1,18 +1,23 @@
 import { Box, Card, CardContent, Skeleton } from '@mui/material';
-import { StarWarsResourcesGridContainer } from './StarWarsResourcesGridContainer';
-import { StarWarsResourcesGridItem } from './StarWarsResourcesGridItem';
+import {
+  StarWarsGridContainer,
+  StarWarsGridItem,
+  StarWarsPage,
+} from '../shared';
 
 export const StarWarsResourcesSkeleton = () => {
   return (
-    <StarWarsResourcesGridContainer>
-      {Array(6)
-        .fill('resource')
-        .map((_, i) => (
-          <StarWarsResourcesGridItem key={i}>
-            <StarWarsItemSkeleton />
-          </StarWarsResourcesGridItem>
-        ))}
-    </StarWarsResourcesGridContainer>
+    <StarWarsPage>
+      <StarWarsGridContainer>
+        {Array(6)
+          .fill('resource')
+          .map((_, i) => (
+            <StarWarsGridItem key={i}>
+              <StarWarsItemSkeleton />
+            </StarWarsGridItem>
+          ))}
+      </StarWarsGridContainer>
+    </StarWarsPage>
   );
 };
 

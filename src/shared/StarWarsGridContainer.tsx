@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 
-interface StarWarsResourcesGridContainerProps {
+interface StarWarsGridContainerProps {
   children: React.ReactNode;
 }
 
-export const StarWarsResourcesGridContainer: React.FC<
-  StarWarsResourcesGridContainerProps
-> = ({ children }) => {
+export const StarWarsGridContainer: React.FC<StarWarsGridContainerProps> = ({
+  children,
+}) => {
   return (
     <Box
       display="grid"

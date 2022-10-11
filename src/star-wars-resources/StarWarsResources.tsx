@@ -5,8 +5,13 @@ import { useGetStarWarResourcesQuery } from '../api';
 import { FilterResource } from './FilterResource';
 import { SearchResources } from './SearchResources';
 import { StarWarsResource } from './StarWarsResource';
-import { StarWarsResourcesGridContainer } from './StarWarsResourcesGridContainer';
-import { StarWarsResourcesGridItem } from './StarWarsResourcesGridItem';
+import {
+  NoData,
+  StarWarsGridContainer,
+  StarWarsGridItem,
+  StarWarsPage,
+  StarWarsPageTitle,
+} from '../shared';
 import { useFilterResources } from './useFilterResources';
 import { useSearchResources } from './useSearchResources';
 
@@ -35,8 +40,12 @@ export const StarWarsResources = () => {
     [data, filteredStarWarsResources, searchedStarWarsResources]
   );
 
+  if (data?.length === 0) {
+    return <NoData />;
+  }
+
   return (
-    <>
+    <StarWarsPage>
       <Toolbar>
         <Stack
           direction={['column', 'row']}
@@ -44,7 +53,6 @@ export const StarWarsResources = () => {
           justifyContent={['flex-start', 'space-between']}
           alignItems="center"
           flex={1}
-          pt={3}
         >
           <SearchResources
             onSearchResources={(searchQuery) => {
@@ -65,22 +73,20 @@ export const StarWarsResources = () => {
         </Stack>
       </Toolbar>
       <Box mt={4}>
-        <Typography variant="h4" mb={6} textAlign="center">
-          Star Wars Resources
-        </Typography>
-        <StarWarsResourcesGridContainer>
+        <StarWarsPageTitle>Star Wars Resources</StarWarsPageTitle>
+        <StarWarsGridContainer>
           {starWarsResources.map((resource) => {
             return (
-              <StarWarsResourcesGridItem key={resource}>
+              <StarWarsGridItem key={resource}>
                 <StarWarsResource resource={resource} />
-              </StarWarsResourcesGridItem>
+              </StarWarsGridItem>
             );
           })}
-        </StarWarsResourcesGridContainer>
+        </StarWarsGridContainer>
       </Box>
       {starWarsResources.length === 0 ? (
         <Typography>No search results</Typography>
       ) : null}
-    </>
+    </StarWarsPage>
   );
 };

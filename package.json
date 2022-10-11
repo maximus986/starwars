@@ -8,6 +8,7 @@
     "@fontsource/space-grotesk": "^4.5.10",
     "@hookform/resolvers": "^2.9.8",
     "@mui/icons-material": "^5.10.6",
+    "@mui/lab": "^5.0.0-alpha.102",
     "@mui/material": "^5.10.8",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",

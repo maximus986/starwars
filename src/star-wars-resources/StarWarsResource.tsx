@@ -39,7 +39,11 @@ export const StarWarsResource: React.FC<StarWarsResourceProps> = ({
             loading="lazy"
           />
         </Box>
-        <Button component={Link} to={resource} variant="contained">
+        <Button
+          component={Link}
+          to={`/star-wars-resources/${resource}`}
+          variant="contained"
+        >
           Details
         </Button>
       </CardContent>

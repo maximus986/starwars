@@ -6,7 +6,10 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { theme } from './theme';
 import { useIsLoggedIn } from './user/useIsLoggedIn';
 import { UserProvider } from './user/userContext';
-import { StarWarsResourcesPage, StarWarsPeople } from './star-wars-resources';
+import {
+  StarWarsResourcesPage,
+  StarWarsPeoplePage,
+} from './star-wars-resources';
 import { Provider } from 'react-redux';
 import { store } from './api';
 import { NotFound } from './NotFound';
@@ -52,7 +55,7 @@ const AppRoot = () => {
           path="/star-wars-resources/people"
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <StarWarsPeople />
+              <StarWarsPeoplePage />
             </ProtectedRoute>
           }
         />

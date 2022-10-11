@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useAppDispatch } from '../api';
 import { SWTextField } from '../core';
+import { SWRoutes } from '../shared';
 import { User } from './user';
 import { setLoggedIn } from './user.slice';
 import { userService } from './userService';
@@ -38,7 +39,7 @@ export const LoginForm = () => {
     const response = await userService.login(data);
     if (response) {
       dispatch(setLoggedIn());
-      navigate('/star-wars-resources', { replace: true });
+      navigate(SWRoutes.StarWarsResources, { replace: true });
     } else {
       alert('Invalid credentials');
     }

@@ -5,18 +5,22 @@ import {
   Skeleton,
   Typography,
 } from '@mui/material';
-import {
-  StarWarsPage,
-  StarWarsGridContainer,
-  StarWarsGridItem,
-  StarWarsCardSubtitle,
-} from '.';
+import { StarWarsCardSubtitle } from './StarWarsCardSubtitle';
+import { StarWarsGridContainer } from './StarWarsGridContainer';
+import { StarWarsGridItem } from './StarWarsGridItem';
+import { StarWarsPage } from './StarWarsPage';
 
-export const StarWarsSkeleton = () => {
+interface StarWarsSkeletonProps {
+  items?: number;
+}
+
+export const StarWarsSkeleton: React.FC<StarWarsSkeletonProps> = ({
+  items = 10,
+}) => {
   return (
     <StarWarsPage>
       <StarWarsGridContainer>
-        {Array(10)
+        {Array(items)
           .fill('resource')
           .map((_, i) => (
             <StarWarsGridItem key={i}>

@@ -17,6 +17,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store, useAppSelector } from './api';
 import { NotFound } from './NotFound';
 import { StarWarsPlanetsPage } from './star-wars-resources/planets/StarWarsPlanetsPage';
+import { SWRoutes } from './shared';
 
 function App() {
   return (
@@ -41,14 +42,14 @@ const AppRoot = () => {
           index
           element={
             <Navigate
-              to={isLoggedIn ? '/star-wars-resources' : '/login'}
+              to={isLoggedIn ? SWRoutes.StarWarsResources : SWRoutes.Login}
               replace
             />
           }
         />
         <Route path="/login" element={<Login />} />
         <Route
-          path="/star-wars-resources"
+          path={SWRoutes.StarWarsResources}
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsResourcesPage />
@@ -56,7 +57,7 @@ const AppRoot = () => {
           }
         />
         <Route
-          path="/star-wars-resources/people"
+          path={SWRoutes.People}
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsPeoplePage />
@@ -64,7 +65,7 @@ const AppRoot = () => {
           }
         />
         <Route
-          path="/star-wars-resources/planets"
+          path={SWRoutes.Planets}
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsPlanetsPage />
@@ -72,7 +73,7 @@ const AppRoot = () => {
           }
         />
         <Route
-          path="/star-wars-resources/films"
+          path={SWRoutes.Films}
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsFilmsPage />
@@ -80,7 +81,7 @@ const AppRoot = () => {
           }
         />
         <Route
-          path="/star-wars-resources/species"
+          path={SWRoutes.Species}
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsSpeciesPage />
@@ -88,7 +89,7 @@ const AppRoot = () => {
           }
         />
         <Route
-          path="/star-wars-resources/vehicles"
+          path={SWRoutes.Vehicles}
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsVehiclesPage />
@@ -96,15 +97,15 @@ const AppRoot = () => {
           }
         />
         <Route
-          path="/star-wars-resources/starships"
+          path={SWRoutes.Starships}
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <StarWarsStarshipsPage />
             </ProtectedRoute>
           }
         />
-        <Route path="/not-found" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/not-found" replace />} />
+        <Route path={SWRoutes.NotFound} element={<NotFound />} />
+        <Route path="*" element={<Navigate to={SWRoutes.NotFound} replace />} />
       </Route>
     </Routes>
   );

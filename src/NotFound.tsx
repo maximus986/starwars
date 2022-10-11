@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { SWRoutes } from './shared';
 
 export const NotFound = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const NotFound = () => {
         You can check star wars resources.
       </Typography>
       <Button
-        onClick={() => navigate('/star-wars-resources')}
+        onClick={() => navigate(SWRoutes.StarWarsResources)}
         variant="contained"
       >
         Check star wars resources

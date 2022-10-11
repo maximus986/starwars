@@ -9,6 +9,7 @@ import films from './images/films.webp';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { usePrefetchResources } from './usePrefetchResources';
+import { SWRoutes } from '../shared';
 
 interface StarWarsResourceProps {
   resource: StarWarResourceType;
@@ -44,7 +45,7 @@ export const StarWarsResource: React.FC<StarWarsResourceProps> = ({
         </Box>
         <Button
           component={Link}
-          to={`/star-wars-resources/${resource}`}
+          to={`${SWRoutes.StarWarsResources}/${resource}`}
           variant="contained"
           onMouseEnter={prefetchResource}
         >

@@ -9,3 +9,4 @@ export * from './NoData';
 export * from './StarWarsCardItem';
 export * from './StarWarsPagination';
 export * from './StarWarsSkeleton';
+export * from './SWRoutes';

@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom';
+import { SWRoutes } from './shared';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -10,7 +11,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   isLoggedIn,
 }) => {
   if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={SWRoutes.Root} replace />;
   }
   return <>{children}</>;
 };
